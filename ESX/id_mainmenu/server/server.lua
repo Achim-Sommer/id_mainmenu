@@ -15,14 +15,18 @@ ESX.RegisterServerCallback('id_mainmenu:getPlayerName', function(source, cb)
 end)
 
 ESX.RegisterServerCallback('id_mainmenu:getPhoneNumber', function(source, cb)
-  local xPlayer = ESX.GetPlayerFromId(source)
-  local phonenumber
-
-  number = MySQL.scalar("SELECT phone_number FROM users WHERE identifier = ?",{xPlayer.identifier})[1]
-  if number~=nil then number = number~=nil and number or {phone_number="N/A"} end
-  phonenumber = number.phone_number or "Your phone number is invalid"
-
-  cb(phonenumber)
+    local src = source
+    local xPlayer = ESX.GetPlayerFromId(src)
+    
+    MySQL.Async.fetchAll('SELECT * FROM users WHERE identifier = @identifier', {
+        ['@identifier'] = xPlayer.identifier
+    }, function(result)
+        if result[1] then
+            cb(result[1].phone_number)
+        else
+            error('Nummer konnte nicht gefunden werden!!')
+        end
+    end)
 end)
 
 ESX.RegisterServerCallback('id_mainmenu:getCash', function(source, cb)

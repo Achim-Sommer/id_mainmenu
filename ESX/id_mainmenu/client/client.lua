@@ -81,7 +81,7 @@ end
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
-		if IsControlJustReleased(0, 244) and not inMenu then
+		if IsControlJustReleased(0, 288) and not inMenu then
 			SetDisplay(true, true)
 		end
 	end
@@ -120,7 +120,7 @@ end)
 RegisterNUICallback("cardealership", function(data)
     SetDisplay(false, false)
 
-    TriggerEvent("esx_vehicleshop:openShopMenu") -- trigger event for opening car dealership
+    TriggerEvent("s1lent_keybinds:openUI") -- trigger event for opening car dealership
     
     inMenu = false
 end)
@@ -128,7 +128,7 @@ end)
 RegisterNUICallback("shop", function(data)
     SetDisplay(false, false)
 
-    TriggerEvent("core_credits:showShop") -- trigger event for opening shop
+    TriggerEvent("doge_store:openDoges") -- trigger event for opening shop
     
     inMenu = false
 end)
@@ -144,7 +144,7 @@ end)
 RegisterNUICallback("jobcenter", function(data)
     SetDisplay(false, false)
     
-    TriggerEvent("id_jobcenter:openUI") -- trigger event for opening job center
+    TriggerEvent("gcphone:TooglePhone") -- trigger event for opening job center
     
     inMenu = false
 end)
